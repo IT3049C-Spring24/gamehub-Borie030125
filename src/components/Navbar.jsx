@@ -13,13 +13,16 @@ const Link = styled(UnStyledLink)`
 
 const Navbar = () => {
   return (
-    <nav style={{ position: 'fixed', top: 0, width: '100%', backgroundColor: `#430000`, left: 0 }}>
+    <nav style={{ position: 'fixed', top: 0, width: '100%', backgroundColor: `#8FBC8F`, left: 0 }}>
       <ul style={{ display: 'flex', justifyContent: 'space-around', listStyle: 'none', padding: 0 }}>
         <li>
           <Link to="/">Home</Link>
         </li>
         <li>
           <Link to="/about">About</Link>
+        </li>
+        <li>
+          <Link to="/about">Gamelist</Link>
         </li>
         <li>
           <Link to="/rps">RPS</Link>
