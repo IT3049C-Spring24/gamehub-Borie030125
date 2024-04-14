@@ -1,4 +1,4 @@
-GameHub
+GameHub(Final Project, Team 10)
 ===================================
 
 Instructions to this assignment can be found [here](https://it3049c.github.io/assignments/gamehub/).

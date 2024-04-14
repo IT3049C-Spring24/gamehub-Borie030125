@@ -9,7 +9,8 @@ export default function HomePage() {
       <ul>
         <li><Link to={`/rps`}>Rock Paper Scissors</Link></li>
         <li><Link to={`/tic-tac`}>Tic Tac Toe</Link></li>
-
+        <li><Link to={`/wordle`}>Wordle</Link></li>
+        <li><Link to={`/dino`}>Dino</Link></li>
       </ul>
     </div>
   );

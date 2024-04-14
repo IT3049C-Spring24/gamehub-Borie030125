@@ -22,13 +22,16 @@ const Navbar = () => {
           <Link to="/about">About</Link>
         </li>
         <li>
-          <Link to="/about">Gamelist</Link>
-        </li>
-        <li>
           <Link to="/rps">RPS</Link>
         </li>
         <li>
           <Link to="/tic-tac">TicTac</Link>
+        </li>
+        <li>
+          <Link to="/wordle">Wordle</Link>
+        </li>
+        <li>
+          <Link to="/dino">Dino</Link>
         </li>
       </ul>
     </nav>
