@@ -79,67 +79,6 @@ const Game = () => {
             { x: 24500, y: 150, width: 29, height: 22 },
             { x: 24900, y: 150, width: 14, height: 18 },
             { x: 25300, y: 150, width: 22, height: 27 },
-            { x: 25700, y: 150, width: 20, height: 13 },
-            { x: 26100, y: 150, width: 16, height: 28 },
-            { x: 26500, y: 150, width: 25, height: 17 },
-            { x: 26900, y: 150, width: 19, height: 19 },
-            { x: 27300, y: 150, width: 12, height: 26 },
-            { x: 27700, y: 150, width: 27, height: 15 },
-            { x: 28100, y: 150, width: 21, height: 24 },
-            { x: 28500, y: 150, width: 18, height: 20 },
-            { x: 28900, y: 150, width: 24, height: 17 },
-            { x: 29300, y: 150, width: 15, height: 23 },
-            { x: 29700, y: 150, width: 23, height: 21 },
-            { x: 30100, y: 150, width: 29, height: 16 },
-            { x: 30500, y: 150, width: 13, height: 19 },
-            { x: 30900, y: 150, width: 22, height: 27 },
-            { x: 31300, y: 150, width: 16, height: 14 },
-            { x: 31700, y: 150, width: 20, height: 29 },
-            { x: 32100, y: 150, width: 25, height: 15 },
-            { x: 32500, y: 150, width: 17, height: 22 },
-            { x: 32900, y: 150, width: 21, height: 18 },
-            { x: 33300, y: 150, width: 26, height: 26 },
-            { x: 33700, y: 150, width: 19, height: 13 },
-            { x: 34100, y: 150, width: 28, height: 24 },
-            { x: 34500, y: 150, width: 12, height: 20 },
-            { x: 34900, y: 150, width: 24, height: 17 },
-            { x: 35300, y: 150, width: 15, height: 25 },
-            { x: 35700, y: 150, width: 23, height: 21 },
-            { x: 36100, y: 150, width: 29, height: 16 },
-            { x: 36500, y: 150, width: 13, height: 19 },
-            { x: 36900, y: 150, width: 22, height: 27 },
-            { x: 37300, y: 150, width: 16, height: 14 },
-            { x: 37700, y: 150, width: 20, height: 29 },
-            { x: 38100, y: 150, width: 25, height: 15 },
-            { x: 38500, y: 150, width: 17, height: 22 },
-            { x: 38900, y: 150, width: 21, height: 18 },
-            { x: 39300, y: 150, width: 26, height: 26 },
-            { x: 39700, y: 150, width: 19, height: 13 },
-            { x: 40100, y: 150, width: 28, height: 24 },
-            { x: 40500, y: 150, width: 12, height: 20 },
-            { x: 40900, y: 150, width: 24, height: 17 },
-            { x: 41300, y: 150, width: 15, height: 25 },
-            { x: 41700, y: 150, width: 23, height: 21 },
-            { x: 42100, y: 150, width: 29, height: 16 },
-            { x: 42500, y: 150, width: 13, height: 19 },
-            { x: 42900, y: 150, width: 22, height: 27 },
-            { x: 43300, y: 150, width: 16, height: 14 },
-            { x: 43700, y: 150, width: 20, height: 29 },
-            { x: 44100, y: 150, width: 25, height: 15 },
-            { x: 44500, y: 150, width: 17, height: 22 },
-            { x: 44900, y: 150, width: 21, height: 18 },
-            { x: 45300, y: 150, width: 26, height: 26 },
-            { x: 45700, y: 150, width: 19, height: 13 },
-            { x: 46100, y: 150, width: 28, height: 24 },
-            { x: 46500, y: 150, width: 12, height: 20 },
-            { x: 46900, y: 150, width: 24, height: 17 },
-            { x: 47300, y: 150, width: 15, height: 25 },
-            { x: 47700, y: 150, width: 23, height: 21 },
-            { x: 48100, y: 150, width: 29, height: 16 },
-            { x: 48500, y: 150, width: 13, height: 19 },
-            { x: 48900, y: 150, width: 22, height: 27 },
-            { x: 49300, y: 150, width: 16, height: 14 },
-            { x: 49700, y: 150, width: 20, height: 29 },
         ];
 
         const jump = () => {
@@ -172,17 +111,17 @@ const Game = () => {
         const updateGame = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // 绘制小恐龙
+            // Draw Square
             ctx.fillStyle = 'white';
             ctx.fillRect(trex.x, trex.y, trex.width, trex.height);
 
-            // 更新并绘制障碍物
+            // Renew obstacle
             obstacles.forEach((obstacle) => {
                 obstacle.x -= 5;
                 ctx.fillStyle = 'red';
                 ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
 
-                // 碰撞检测
+                // Detect Gameover
                 if (trex.x < obstacle.x + obstacle.width &&
                     trex.x + trex.width > obstacle.x &&
                     trex.y < obstacle.y + obstacle.height &&
@@ -198,7 +137,7 @@ const Game = () => {
         };
 
         const handleKeyDown = (e) => {
-            if (e.keyCode === 32 && trex.y >= 150) { // 空格键
+            if (e.keyCode === 32 && trex.y >= 150) { // Space
                 jump();
             }
         };
