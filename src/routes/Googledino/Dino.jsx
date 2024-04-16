@@ -15,24 +15,23 @@ const Game = () => {
         const ctx = canvas.getContext('2d');
         let animationFrameId; 
 
-        // 游戏对象
         const trex = { x: 50, y: 150, width: 20, height: 20 };
         const obstacles = initObstacles();
 
         function initObstacles() {
             let obs = [];
-            let xPosition = 1000; // 初始x位置
+            let xPosition = 1000; // First Obstacle position
 
             for (let i = 0; i < 100; i++) {
-                let height = Math.random() * 15 + 15; // 随机高度，15到30之间
-                let width = Math.random() * 15 + 10;  // 随机宽度，10到25之间
+                let height = Math.random() * 15 + 15; // Random height，between 15-30
+                let width = Math.random() * 15 + 10;  // Random width，between 15-30
                 obs.push({
                     x: xPosition,
-                    y: canvas.height - height -30, // 底部对齐
+                    y: canvas.height - height -30, // Just let trex and obstacles at the same height
                     width: width,
                     height: height
                 });
-                xPosition += Math.random() * 200 + 200; // 下一个障碍物的位置，间隔200到400
+                xPosition += Math.random() * 200 + 200; // Location of next obstacles, distance is over 200
             }
             return obs;
         }
@@ -47,7 +46,7 @@ const Game = () => {
                     clearInterval(jumpInterval);
                     fall();
                 } else {
-                    trex.y -= jumpSpeed;
+                    trex.y -= jumpSpeed; //In fact up in the screen
                     jumpHeight += jumpSpeed;
                 }
             }, 20);
