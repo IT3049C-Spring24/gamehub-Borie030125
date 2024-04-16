@@ -4,8 +4,8 @@ export default function HomePage() {
   return (
     <div>
       <h1>Gamehub Home Page</h1>
-      <p>This is the home page of all my React Games.</p>
-      <p>You can Navigate to any of the following games:</p>
+      <p>All Games Are Displayed right here.</p>
+      <p>Click link to enjoy the following games!</p>
       <ul>
         <li><Link to={`/rps`}>Rock Paper Scissors</Link></li>
         <li><Link to={`/tic-tac`}>Tic Tac Toe</Link></li>

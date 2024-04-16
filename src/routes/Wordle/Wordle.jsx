@@ -10,14 +10,13 @@ function Game() {
         guesses: Array(5).fill(null).map(() => Array(5).fill('')),
         gameFinished: false
     });
-    const [isInitialized, setIsInitialized] = useState(false); // 新状态来追踪初始化
+    const [isInitialized, setIsInitialized] = useState(false); 
 
-    // 仅在组件首次挂载时获取单词
     useEffect(() => {
         if (!isInitialized) {
             setRandomWordAsTarget();
         }
-    }, [isInitialized]); // 依赖于 isInitialized
+    }, [isInitialized]); 
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -49,7 +48,7 @@ function Game() {
                 }
             }
             setGameState(prevState => ({ ...prevState, wordToGuess: word }));
-            setIsInitialized(true); // 设置为已初始化
+            setIsInitialized(true); 
         } catch (error) {
             console.error("Error setting random word as target:", error);
         }

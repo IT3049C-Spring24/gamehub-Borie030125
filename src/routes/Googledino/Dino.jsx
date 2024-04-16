@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import './Dino.css'; // 引入CSS样式
+import './Dino.css'; 
 
 const Game = () => {
     const canvasRef = useRef(null);
@@ -65,11 +65,11 @@ const Game = () => {
 
         const updateGame = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+            //Ground
             ctx.fillStyle = 'white';
             ctx.fillRect(0, canvas.height-30, canvas.width, 2);
 
-            // Draw Square
+            // Draw T-Rex
             ctx.fillStyle = 'white';
             ctx.fillRect(trex.x, trex.y, trex.width, trex.height);
 
