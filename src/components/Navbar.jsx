@@ -31,6 +31,9 @@ const Navbar = () => {
           <Link to="/wordle">Wordle</Link>
         </li>
         <li>
+          <Link to="/number">NumberGuess</Link>
+        </li>
+        <li>
           <Link to="/dino">Dino</Link>
         </li>
       </ul>

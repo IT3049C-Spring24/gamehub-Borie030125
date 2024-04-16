@@ -13,6 +13,7 @@ import Game from './routes/RPS-Game/Game.jsx'
 import TicTac from './routes/Tic-Tac-Toe/TicTac.jsx'
 import Wordle from './routes/Wordle/Wordle.jsx'
 import Dino from './routes/Googledino/Dino.jsx'
+import Guess from './routes/NumberGuessing/Guess.jsx'
 
 
 
@@ -45,6 +46,10 @@ const routes = createBrowserRouter([
       {
         path: `/dino`,
         element: <Dino />,
+      },
+      {
+        path: `/number`,
+        element: <Guess />,
       },
     ]
   }

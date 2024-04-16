@@ -13,73 +13,29 @@ const Game = () => {
     useEffect(() => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
-        let animationFrameId;
+        let animationFrameId; 
 
         // 游戏对象
         const trex = { x: 50, y: 150, width: 20, height: 20 };
-        const obstacles = [
-            { x: 1000, y: 150, width: 20, height: 35 },
-            { x: 1400, y: 150, width: 15, height: 20 },
-            { x: 1850, y: 150, width: 12, height: 15 },
-            { x: 2250, y: 150, width: 30, height: 30 },
-            { x: 2700, y: 150, width: 25, height: 30 },
-            { x: 3150, y: 150, width: 18, height: 12 },
-            { x: 3550, y: 150, width: 14, height: 28 },
-            { x: 4000, y: 150, width: 16, height: 22 },
-            { x: 4450, y: 150, width: 28, height: 20 },
-            { x: 4900, y: 150, width: 10, height: 38 },
-            { x: 5300, y: 150, width: 27, height: 16 },
-            { x: 5700, y: 150, width: 22, height: 24 },
-            { x: 6100, y: 150, width: 17, height: 29 },
-            { x: 6500, y: 150, width: 21, height: 21 },
-            { x: 6900, y: 150, width: 26, height: 19 },
-            { x: 7300, y: 150, width: 19, height: 23 },
-            { x: 7700, y: 150, width: 13, height: 27 },
-            { x: 8100, y: 150, width: 29, height: 18 },
-            { x: 8500, y: 150, width: 23, height: 26 },
-            { x: 8900, y: 150, width: 11, height: 17 },
-            { x: 9300, y: 150, width: 24, height: 28 },
-            { x: 9700, y: 150, width: 18, height: 20 },
-            { x: 10100, y: 150, width: 20, height: 15 },
-            { x: 10500, y: 150, width: 15, height: 22 },
-            { x: 10900, y: 150, width: 26, height: 12 },
-            { x: 11300, y: 150, width: 14, height: 25 },
-            { x: 11700, y: 150, width: 18, height: 18 },
-            { x: 12100, y: 150, width: 29, height: 16 },
-            { x: 12500, y: 150, width: 17, height: 20 },
-            { x: 12900, y: 150, width: 25, height: 14 },
-            { x: 13300, y: 150, width: 21, height: 26 },
-            { x: 13700, y: 150, width: 12, height: 23 },
-            { x: 14100, y: 150, width: 28, height: 19 },
-            { x: 14500, y: 150, width: 16, height: 21 },
-            { x: 14900, y: 150, width: 20, height: 17 },
-            { x: 15300, y: 150, width: 24, height: 29 },
-            { x: 15700, y: 150, width: 19, height: 15 },
-            { x: 16100, y: 150, width: 27, height: 22 },
-            { x: 16500, y: 150, width: 22, height: 24 },
-            { x: 16900, y: 150, width: 18, height: 18 },
-            { x: 17300, y: 150, width: 14, height: 26 },
-            { x: 17700, y: 150, width: 23, height: 20 },
-            { x: 18100, y: 150, width: 16, height: 12 },
-            { x: 18500, y: 150, width: 25, height: 27 },
-            { x: 18900, y: 150, width: 21, height: 16 },
-            { x: 19300, y: 150, width: 19, height: 21 },
-            { x: 19700, y: 150, width: 27, height: 25 },
-            { x: 20100, y: 150, width: 15, height: 18 },
-            { x: 20500, y: 150, width: 12, height: 24 },
-            { x: 20900, y: 150, width: 28, height: 29 },
-            { x: 21300, y: 150, width: 20, height: 14 },
-            { x: 21700, y: 150, width: 24, height: 23 },
-            { x: 22100, y: 150, width: 17, height: 19 },
-            { x: 22500, y: 150, width: 26, height: 21 },
-            { x: 22900, y: 150, width: 23, height: 17 },
-            { x: 23300, y: 150, width: 15, height: 25 },
-            { x: 23700, y: 150, width: 21, height: 20 },
-            { x: 24100, y: 150, width: 18, height: 16 },
-            { x: 24500, y: 150, width: 29, height: 22 },
-            { x: 24900, y: 150, width: 14, height: 18 },
-            { x: 25300, y: 150, width: 22, height: 27 },
-        ];
+        const obstacles = initObstacles();
+
+        function initObstacles() {
+            let obs = [];
+            let xPosition = 1000; // 初始x位置
+
+            for (let i = 0; i < 100; i++) {
+                let height = Math.random() * 15 + 15; // 随机高度，15到30之间
+                let width = Math.random() * 15 + 10;  // 随机宽度，10到25之间
+                obs.push({
+                    x: xPosition,
+                    y: canvas.height - height -30, // 底部对齐
+                    width: width,
+                    height: height
+                });
+                xPosition += Math.random() * 200 + 200; // 下一个障碍物的位置，间隔200到400
+            }
+            return obs;
+        }
 
         const jump = () => {
             let jumpHeight = 0;
@@ -111,13 +67,16 @@ const Game = () => {
         const updateGame = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, canvas.height-30, canvas.width, 2);
+
             // Draw Square
             ctx.fillStyle = 'white';
             ctx.fillRect(trex.x, trex.y, trex.width, trex.height);
 
             // Renew obstacle
             obstacles.forEach((obstacle) => {
-                obstacle.x -= 5;
+                obstacle.x -= 2.5;
                 ctx.fillStyle = 'red';
                 ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
 
@@ -175,6 +134,7 @@ const Game = () => {
 
     return (
         <div>
+            
             <canvas ref={canvasRef} width={800} height={200} className="game-canvas"></canvas>
             <div>
                 <p>Score: {score}</p>
