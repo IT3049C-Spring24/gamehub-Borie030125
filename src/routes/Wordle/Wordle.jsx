@@ -10,13 +10,10 @@ function Game() {
         guesses: Array(5).fill(null).map(() => Array(5).fill('')),
         gameFinished: false
     });
-    const [isInitialized, setIsInitialized] = useState(false); 
 
     useEffect(() => {
-        if (!isInitialized) {
-            setRandomWordAsTarget();
-        }
-    }, [isInitialized]); 
+        setRandomWordAsTarget();
+    }, []); 
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -33,49 +30,58 @@ function Game() {
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [gameState.currentPosition, gameState.currentAttempt, gameState.gameFinished, gameState.wordToGuess]);
+    }, [gameState]);
 
     const setRandomWordAsTarget = async () => {
-        try {
-            let word = '';
-            while (word.length !== 5) {
-                const response = await fetch('https://random-word-api.herokuapp.com/word?number=1');
+        let fetchedWord = '';
+        while (!fetchedWord) {
+            try {
+                const response = await fetch('https://it3049c-hangman.fly.dev');
                 if (!response.ok) throw new Error('Failed to fetch the word.');
-                const [fetchedWord] = await response.json();
-                if (fetchedWord.length === 5) {
-                    word = fetchedWord.toLowerCase();
-                    break;
+                const data = await response.json();
+                if (await isWordValid(data.word)) {
+                    fetchedWord = data.word.toLowerCase();
                 }
+            } catch (error) {
+                console.error("Error fetching or validating the word:", error);
             }
-            setGameState(prevState => ({ ...prevState, wordToGuess: word }));
-            setIsInitialized(true); 
-        } catch (error) {
-            console.error("Error setting random word as target:", error);
         }
+        setGameState(prevState => ({ ...prevState, wordToGuess: fetchedWord }));
     };
 
+    async function isWordValid(word) {
+        const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
+        try {
+            const response = await fetch(url);
+            return response.ok;  
+        } catch (error) {
+            console.error("Error validating the word with dictionary API:", error);
+            return false;
+        }
+    }
+
     const addLetter = (letter) => {
-        if (gameState.currentPosition < gameConfig.cols) {
-            const newGuesses = gameState.guesses.slice();
-            newGuesses[gameState.currentAttempt][gameState.currentPosition] = letter.toUpperCase();
-            setGameState(prevState => ({
+        setGameState(prevState => {
+            const newGuesses = prevState.guesses.slice();
+            newGuesses[prevState.currentAttempt][prevState.currentPosition] = letter.toUpperCase();
+            return {
                 ...prevState,
                 guesses: newGuesses,
                 currentPosition: prevState.currentPosition + 1
-            }));
-        }
+            };
+        });
     };
 
     const removeLetter = () => {
-        if (gameState.currentPosition > 0) {
-            const newGuesses = gameState.guesses.slice();
-            newGuesses[gameState.currentAttempt][gameState.currentPosition - 1] = '';
-            setGameState(prevState => ({
+        setGameState(prevState => {
+            const newGuesses = prevState.guesses.slice();
+            newGuesses[prevState.currentAttempt][prevState.currentPosition - 1] = '';
+            return {
                 ...prevState,
                 guesses: newGuesses,
                 currentPosition: prevState.currentPosition - 1
-            }));
-        }
+            };
+        });
     };
 
     const submitGuess = () => {
@@ -97,10 +103,9 @@ function Game() {
     };
 
     return (
-        <div className="game" tabIndex="0">
+        <div className="game">
             <header>
                 <h1>Wordle</h1>
-                <button onClick={() => document.body.classList.toggle('light-mode')}>Toggle Dark/Light Mode</button>
             </header>
             <div id="wordle-grid">
                 {gameState.guesses.map((row, rowIndex) => (
@@ -132,3 +137,4 @@ function Game() {
 }
 
 export default Game;
+
